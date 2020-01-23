@@ -5,11 +5,37 @@ import './ColorBox.css';
 // For implementing the copy feature, we will use the react-copy-to-clipboard package.
 
 class ColorBox extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            copied : false
+        };
+        this.changeCopyState = this.changeCopyState.bind(this);
+    }
+
+    changeCopyState(){
+        this.setState({
+            copied : true
+        },() => {
+            setTimeout(() => {
+                this.setState({
+                    copied : false
+                })
+            },1500);    
+        });
+    }
+
     render(){
         const { name, background } = this.props;
+        const { copied } = this.state;
         return(
-            <CopyToClipboard text = {background}>
+            <CopyToClipboard text = {background} onCopy = {this.changeCopyState}>
                 <div style = {{ background : background }} className = "ColorBox">
+                    <div style = {{background : background}} className = {`copy-overlay ${copied && 'show'}`} />
+                    <div className = {`copy-msg ${copied && 'show'}`}>
+                        <h1>copied!</h1>
+                        <p>{background}</p>
+                    </div>
                     <div className = "copy-content">
                         <div className = "box-content">
                             {name}
