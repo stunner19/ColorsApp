@@ -24,6 +24,7 @@ class App extends Component{
                         />
                     )}
                 />
+                <Route exact path = '/palette/:paletteId/:colorId' />
             </Switch>
         );
     }
