@@ -18,6 +18,7 @@ class App extends Component{
         };
         this.savePalette = this.savePalette.bind(this);
         this.findPalette = this.findPalette.bind(this);
+        this.deletePalette = this.deletePalette.bind(this);
         // Even if we are using an arrow function, if we use the keyword this inside the arrow function, we need to bind it in the constructor.
     }
 
@@ -31,6 +32,12 @@ class App extends Component{
         this.setState({
             palettes : [...this.state.palettes, newPalette]
         }, this.syncLocalStorage);
+    }
+
+    deletePalette(id){
+        this.setState((oldState) => ({
+            palettes : oldState.palettes.filter(palette => id !== palette.id),
+        }), this.syncLocalStorage);
     }
 
     syncLocalStorage() {
@@ -48,7 +55,13 @@ class App extends Component{
                         savePalette = {this.savePalette} 
                     />} 
                 />
-                <Route exact path = '/' render = {(routeProps) => <PaletteList {...routeProps} palettes = { palettes } /> } />
+                <Route exact path = '/' render = {(routeProps) => 
+                    <PaletteList 
+                        {...routeProps} 
+                        palettes = { palettes } 
+                        deletePalette = {this.deletePalette} 
+                    /> } 
+                />
                 <Route exact path = '/palette/:id' 
                     render = {(routeProps) => (
                         <Palette
