@@ -1,12 +1,19 @@
 import sizes from './sizes';
+import bg from './bg.svg';
 
 const styles = {
     root : {
         backgroundColor : "blue",
-        height : "150vh",
+        height : "100vh",
         display : "flex",
         alignItems : "flex-start",
-        justifyContent : "center"
+        justifyContent : "center",
+        backgroundColor: "#32ff16",
+        backgroundImage: `url(${bg})`,
+        overflow : "scroll"
+    },
+    heading : {
+        fontSize : "2rem"
     },
     container : {
         width : "50%",
